@@ -1,8 +1,14 @@
+File: folder
+Size: 33208 bytes 
+Creation time: 7.3.2024\18:46:45
+Modification time: 7.3.2024\18:47:27
+Access time: 7.3.2024\19:49:34
+
 File: image1.JPG
 Size: 175042 bytes 
 Creation time: 13.7.2021\15:6:0
 Modification time: 13.7.2021\15:5:47
-Access time: 6.3.2024\22:28:59
+Access time: 7.3.2024\17:48:12
 
 File: image2.JPG
 Size: 3481835 bytes 
@@ -20,11 +26,17 @@ File: ru-olymp-team-russia-2020-diploma.pdf
 Size: 2856466 bytes 
 Creation time: 30.12.2020\16:33:21
 Modification time: 30.12.2020\16:33:22
-Access time: 6.3.2024\22:28:59
+Access time: 7.3.2024\17:48:12
 
 File: text_doc.txt
 Size: 10 bytes 
 Creation time: 30.5.2020\17:38:42
 Modification time: 30.5.2020\17:39:5
 Access time: 6.3.2024\21:15:27
+
+File: Новый текстовый документ.txt
+Size: 0 bytes 
+Creation time: Can't get time info
+Modification time: Can't get time info
+Access time: Can't get time info
 

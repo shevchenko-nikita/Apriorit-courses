@@ -50,19 +50,13 @@ unsigned long long getFolderSize(const std::string& _path) {
 }
 
 std::string getFileInfoTime(const std::string& _path, TimeTypes time_type) {
-    HANDLE hFile = CreateFile(
-            _path.c_str(),
-            GENERIC_READ,
-            FILE_SHARE_READ,
-            NULL,
-            OPEN_EXISTING,
-            FILE_ATTRIBUTE_NORMAL,
-            NULL
-    );
+    WIN32_FILE_ATTRIBUTE_DATA ftInfo;
 
-    FILETIME ftCreate, ftAccess, ftWrite;
+    if (GetFileAttributesEx(_path.c_str(), GetFileExInfoStandard, &ftInfo)) {
+        FILETIME ftCreate = ftInfo.ftCreationTime;
+        FILETIME ftAccess = ftInfo.ftLastAccessTime;
+        FILETIME ftWrite = ftInfo.ftLastWriteTime;
 
-    if (GetFileTime(hFile, &ftCreate, &ftAccess, &ftWrite)) {
         SYSTEMTIME stUTC, stLocal;
 
         if(time_type == TimeTypes::CREATION_TIME) {
