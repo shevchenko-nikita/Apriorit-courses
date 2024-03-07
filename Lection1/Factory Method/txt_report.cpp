@@ -11,11 +11,11 @@ void TxtFileReport::generate() const {
     try {
         if(report.is_open()) {
             for(const auto& entry : files) {
-                report << "File: " << entry.get_name() << '\n'
-                       << "Size: " << entry.get_size() << " bytes \n"
-                       << "Creation time: " << entry.get_creation_time() << "\n"
-                       << "Modification time: " << entry.get_modification_time() << "\n"
-                       << "Access time: " << entry.get_access_time() << "\n";
+                report << "File: " << entry.getName() << '\n'
+                       << "Size: " << entry.getSize() << " bytes \n"
+                       << "Creation time: " << entry.getCreationTime() << "\n"
+                       << "Modification time: " << entry.getModificationTime() << "\n"
+                       << "Access time: " << entry.getAccessTime() << "\n";
 
                 report << std::endl;
             }

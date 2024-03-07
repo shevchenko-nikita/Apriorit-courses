@@ -2,11 +2,31 @@
 
 #include <windows.h>
 
-std::vector<File> parseFolder(const std::string& _path) {
+std::string File::getName() const {
+    return name;
+}
+
+unsigned long long File::getSize() const {
+    return size_;
+}
+
+std::string File::getCreationTime() const {
+    return creation_time;
+}
+
+std::string File::getModificationTime() const {
+    return modification_time;
+}
+
+std::string File::getAccessTime() const {
+    return access_time;
+}
+
+std::vector<File> parseFolder(const std::string& path) {
     std::vector<File> files;
 
     try {
-        for (const auto &entry: std::filesystem::directory_iterator(_path)) {
+        for (const auto &entry: std::filesystem::directory_iterator(path)) {
             auto name = entry.path().filename().string();
 
             auto file_size = entry.is_directory()
@@ -29,11 +49,11 @@ std::vector<File> parseFolder(const std::string& _path) {
     return files;
 }
 
-unsigned long long getFolderSize(const std::string& _path) {
+unsigned long long getFolderSize(const std::string& path) {
     unsigned long long sz = 0;
 
     try {
-        for(const auto& entry : std::filesystem::directory_iterator(_path)) {
+        for(const auto& entry : std::filesystem::directory_iterator(path)) {
             if(entry.is_directory()) {
                 sz += getFolderSize(entry.path().string());
             }
@@ -49,36 +69,38 @@ unsigned long long getFolderSize(const std::string& _path) {
     return sz;
 }
 
-std::string getFileInfoTime(const std::string& _path, TimeTypes time_type) {
-    WIN32_FILE_ATTRIBUTE_DATA ftInfo;
+std::string getFileInfoTime(const std::string& path, TimeTypes time_type) {
+    WIN32_FILE_ATTRIBUTE_DATA ft_info;
 
-    if (GetFileAttributesEx(_path.c_str(), GetFileExInfoStandard, &ftInfo)) {
-        FILETIME ftCreate = ftInfo.ftCreationTime;
-        FILETIME ftAccess = ftInfo.ftLastAccessTime;
-        FILETIME ftWrite = ftInfo.ftLastWriteTime;
+    if (GetFileAttributesEx(path.c_str(), GetFileExInfoStandard, &ft_info)) {
+        FILETIME ft_create = ft_info.ftCreationTime;
+        FILETIME ft_access = ft_info.ftLastAccessTime;
+        FILETIME ft_write = ft_info.ftLastWriteTime;
 
         SYSTEMTIME stUTC, stLocal;
 
-        if(time_type == TimeTypes::CREATION_TIME) {
-            FileTimeToSystemTime(&ftCreate, &stUTC);
-        }
-        else if(time_type == TimeTypes::ACCESS_TIME) {
-            FileTimeToSystemTime(&ftAccess, &stUTC);
-        }
-        else {
-            FileTimeToSystemTime(&ftWrite, &stUTC);
+        switch(time_type) {
+            case(TimeTypes::CREATION_TIME):
+                FileTimeToSystemTime(&ft_create, &stUTC);
+                break;
+            case(TimeTypes::ACCESS_TIME):
+                FileTimeToSystemTime(&ft_access, &stUTC);
+                break;
+            case(TimeTypes::MODIFICATION_TIME):
+                FileTimeToSystemTime(&ft_write, &stUTC);
+                break;
         }
 
         SystemTimeToTzSpecificLocalTime(NULL, &stUTC, &stLocal);
 
-        std::string _time = std::to_string(stLocal.wDay) + '.' +
-                            std::to_string(stLocal.wMonth) + '.' +
-                            std::to_string(stLocal.wYear) + '\\' +
-                            std::to_string(stLocal.wHour) + ':' +
-                            std::to_string(stLocal.wMinute) + ':' +
-                            std::to_string(stLocal.wSecond);
+        std::string time_result = std::to_string(stLocal.wDay) + '.' +
+                                  std::to_string(stLocal.wMonth) + '.' +
+                                  std::to_string(stLocal.wYear) + '\\' +
+                                  std::to_string(stLocal.wHour) + ':' +
+                                  std::to_string(stLocal.wMinute) + ':' +
+                                  std::to_string(stLocal.wSecond);
 
-        return _time;
+        return time_result;
     }
     else {
         return "Can't get time info";

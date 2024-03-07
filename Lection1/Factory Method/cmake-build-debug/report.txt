@@ -2,7 +2,7 @@ File: folder
 Size: 33208 bytes 
 Creation time: 7.3.2024\18:46:45
 Modification time: 7.3.2024\18:47:27
-Access time: 7.3.2024\19:49:34
+Access time: 7.3.2024\21:42:28
 
 File: image1.JPG
 Size: 175042 bytes 
@@ -35,7 +35,7 @@ Modification time: 30.5.2020\17:39:5
 Access time: 6.3.2024\21:15:27
 
 File: Новый текстовый документ.txt
-Size: 0 bytes 
+Size: 58080 bytes 
 Creation time: Can't get time info
 Modification time: Can't get time info
 Access time: Can't get time info

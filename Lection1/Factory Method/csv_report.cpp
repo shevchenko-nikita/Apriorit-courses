@@ -13,11 +13,11 @@ void CsvFileReport::generate() const {
             report << "Name,Size,Creation_Time,Modification_Time,Access_Time\n";
 
             for(const auto& entry : files) {
-                report << entry.get_name() << ','
-                       << entry.get_size() << ','
-                       << entry.get_creation_time() << ','
-                       << entry.get_modification_time() << ','
-                       << entry.get_access_time() << '\n';
+                report << entry.getName() << ','
+                       << entry.getSize() << ','
+                       << entry.getCreationTime() << ','
+                       << entry.getModificationTime() << ','
+                       << entry.getAccessTime() << '\n';
             }
 
             report.close();
