@@ -27,5 +27,6 @@ void TxtFileReport::generate(const std::string& path) const {
     }
     catch(const std::exception& ex) {
         std::cout << "Report is not created: " << ex.what() << std::endl;
+        exit(1);
     }
 }
