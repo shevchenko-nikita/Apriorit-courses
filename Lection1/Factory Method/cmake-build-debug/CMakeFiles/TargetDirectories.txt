@@ -1,3 +1,0 @@
-C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection1/Factory Method/cmake-build-debug/CMakeFiles/Factory_Method.dir
-C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection1/Factory Method/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection1/Factory Method/cmake-build-debug/CMakeFiles/rebuild_cache.dir
