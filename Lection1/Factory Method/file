@@ -39,6 +39,16 @@ enum class TimeTypes {
     MODIFICATION_TIME
 };
 
-std::vector<File> parseFolder(const std::string& path);
-unsigned long long getFolderSize(const std::string& path);
-std::string getFileInfoTime(const std::string& path, TimeTypes);
+class Folder {
+private:
+    std::vector<File> files;
+
+    std::vector<File> parseFolder(const std::string& path);
+    unsigned long long getFolderSize(const std::string& path);
+    std::string getFileInfoTime(const std::string& path, TimeTypes);
+
+public:
+    Folder(const std::string& path) : files(parseFolder(path)) {}
+
+    std::vector<File> getFilesList();
+};

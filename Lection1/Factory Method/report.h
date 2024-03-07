@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "files_info.h"
+#include "file"
 
 class FileReport {
 public:

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "files_info.h"
+#include "file"
 #include "report.h"
 
 class ReportCreator {

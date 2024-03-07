@@ -1,4 +1,4 @@
-#include "files_info.h"
+#include "file"
 
 #include <windows.h>
 
@@ -22,7 +22,7 @@ std::string File::getAccessTime() const {
     return access_time;
 }
 
-std::vector<File> parseFolder(const std::string& path) {
+std::vector<File> Folder::parseFolder(const std::string& path) {
     std::vector<File> files;
 
     try {
@@ -49,7 +49,7 @@ std::vector<File> parseFolder(const std::string& path) {
     return files;
 }
 
-unsigned long long getFolderSize(const std::string& path) {
+unsigned long long Folder::getFolderSize(const std::string& path) {
     unsigned long long sz = 0;
 
     try {
@@ -69,7 +69,7 @@ unsigned long long getFolderSize(const std::string& path) {
     return sz;
 }
 
-std::string getFileInfoTime(const std::string& path, TimeTypes time_type) {
+std::string Folder::getFileInfoTime(const std::string& path, TimeTypes time_type) {
     WIN32_FILE_ATTRIBUTE_DATA ft_info;
 
     if (GetFileAttributesEx(path.c_str(), GetFileExInfoStandard, &ft_info)) {
@@ -105,4 +105,8 @@ std::string getFileInfoTime(const std::string& path, TimeTypes time_type) {
     else {
         return "Can't get time info";
     }
+}
+
+std::vector<File> Folder::getFilesList() {
+    return files;
 }
