@@ -2,29 +2,11 @@
 
 #include <memory>
 
-#include "file"
+#include "file.h"
 
 class FileReport {
 public:
-    virtual void generate() const = 0;
+    virtual void generate(const std::string& path) const = 0;
+    virtual ~FileReport() = default;
 };
 
-class TxtFileReport: public FileReport {
-private:
-    std::vector<File> files;
-
-public:
-    TxtFileReport(const std::vector<File>& _files) : files(_files) {}
-
-    void generate() const override;
-};
-
-class CsvFileReport: public FileReport {
-private:
-    std::vector<File> files;
-
-public:
-    CsvFileReport(const std::vector<File>& _files) : files(_files) {}
-
-    void generate() const override;
-};

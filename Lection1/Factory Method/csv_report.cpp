@@ -1,11 +1,10 @@
-#include "report.h"
+#include "csv_report.h"
 
 #include <string>
 #include <fstream>
 #include <iostream>
 
-void CsvFileReport::generate() const {
-    const std::string path = "report.csv";
+void CsvFileReport::generate(const std::string& path) const {
     std::ofstream report(path);
 
     try {

@@ -1,11 +1,10 @@
-#include "report.h"
+#include "txt_report.h"
 
 #include <string>
 #include <fstream>
 #include <iostream>
 
-void TxtFileReport::generate() const {
-    const std::string path = "report.txt";
+void TxtFileReport::generate(const std::string& path) const {
     std::ofstream report(path);
 
     try {

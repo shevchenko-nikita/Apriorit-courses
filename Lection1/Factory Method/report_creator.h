@@ -1,7 +1,8 @@
 #pragma once
 
-#include "file"
-#include "report.h"
+#include "file.h"
+#include "txt_report.h"
+#include "csv_report.h"
 
 class ReportCreator {
 public:
