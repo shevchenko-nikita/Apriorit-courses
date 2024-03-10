@@ -1,5 +1,4 @@
-#ifndef CODEREVIEWTASK_MYVECTOR_HPP
-#define CODEREVIEWTASK_MYVECTOR_HPP
+#pragma once
 
 #include <vector>
 #include <string>
@@ -55,46 +54,82 @@ public:
 
     ~MyVector() = default;
 
-    void push_back(const T& obj, const std::string& name)
-    {
-        copy_names();
+    void push_back(const T& obj, const std::string& name);
 
-        std::vector<T>::push_back(obj);
-        m_names->push_back(name);
-    }
+    std::pair<const T&, const std::string&> operator[](int index) const;
+    std::pair<T&, std::string&> operator[](int index);
 
-    std::pair<const T&, const std::string&> operator[](const int index) const
-    {
-        return std::make_pair(std::vector<T>::at(index), (*m_names)[index]);
-    }
+    const T& operator[](const std::string& name) const;
+    T& operator[](const std::string& name);
 
-    const T& operator[](const std::string& name) const
-    {
-        const auto& iter = std::find(m_names->begin(), m_names->end(), name);
-        if (iter == m_names->end())
-        {
-            throw std::invalid_argument(name + " is not found in the MyVector");
-        }
-
-        return std::vector<T>::operator[](std::distance(m_names->begin(), iter));
-    }
+    void reserve(size_t len);
+    void clear();
 
 private:
-    void copy_names()
-    {
-        if (m_names.use_count() > 1)
-        {
-            m_names = std::make_shared<std::vector<std::string>>(*m_names);
-        }
-    }
+    void copy_names();
 
-private:
-    // Use copy-on-write idiom for efficiency (not a premature optimization)
+public:
     std::shared_ptr<std::vector<std::string>> m_names;
 
 };
 
 
-#endif //CODEREVIEWTASK_MYVECTOR_HPP
+template<typename T>
+void MyVector<T>::push_back(const T& obj, const std::string& name) {
+    copy_names();
 
+    std::vector<T>::push_back(obj);
+    m_names->push_back(name);
+}
+
+template<typename T>
+std::pair<const T&, const std::string&> MyVector<T>::operator[](int index) const {
+    return std::make_pair(std::vector<T>::at(index), m_names->at(index));
+}
+
+template<typename T>
+std::pair<T&, std::string&> MyVector<T>::operator[](int index) {
+    return std::make_pair(std::vector<T>::at(index), m_names->at(index));
+}
+
+template<typename T>
+const T& MyVector<T>::operator[](const std::string& name) const {
+    const auto& iter = std::find(m_names->begin(), m_names->end(), name);
+    if (iter == m_names->end()) {
+        throw std::invalid_argument(name + " is not found in the MyVector");
+    }
+
+    return std::vector<T>::operator[](std::distance(m_names->begin(), iter));
+}
+
+template<typename T>
+T& MyVector<T>::operator[](const std::string& name) {
+    const auto& iter = std::find(m_names->begin(), m_names->end(), name);
+    if (iter == m_names->end()) {
+        throw std::invalid_argument(name + " is not found in the MyVector");
+    }
+
+    return std::vector<T>::operator[](std::distance(m_names->begin(), iter));
+}
+
+template<typename T>
+void MyVector<T>::reserve(size_t len) {
+    copy_names();
+
+    std::vector<T>::reserve(len);
+    m_names->reserve(len);
+}
+
+template<typename T>
+void MyVector<T>::clear() {
+    copy_names();
+
+    std::vector<T>::clear();
+    m_names->clear();
+}
+
+template<typename T>
+void MyVector<T>::copy_names() {
+    m_names = std::make_shared<std::vector<std::string>>(*m_names);
+}
 

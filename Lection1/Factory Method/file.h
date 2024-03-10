@@ -33,14 +33,15 @@ public:
     std::string getAccessTime() const noexcept;
 };
 
-enum class TimeTypes {
-    CREATION_TIME,
-    ACCESS_TIME,
-    MODIFICATION_TIME
-};
 
 class Folder {
 private:
+    enum class TimeTypes {
+        CREATION_TIME,
+        ACCESS_TIME,
+        MODIFICATION_TIME
+    };
+
     std::vector<File> files;
 
     std::vector<File> parseFolder(const std::string& path) noexcept;
