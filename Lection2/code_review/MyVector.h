@@ -62,13 +62,35 @@ public:
     const T& operator[](const std::string& name) const;
     T& operator[](const std::string& name);
 
+    std::pair<typename std::vector<T>::iterator,
+              typename std::vector<std::string>::iterator> begin();
+
+    std::pair<typename std::vector<T>::iterator,
+              typename std::vector<std::string>::iterator> begin() const;
+
+    std::pair<typename std::vector<T>::iterator,
+              typename std::vector<std::string>::iterator> end();
+    std::pair<typename std::vector<T>::iterator,
+              typename std::vector<std::string>::iterator> end() const;
+
+    std::pair<typename std::vector<T>::const_iterator,
+              typename std::vector<std::string>::const_iterator> cbegin() const;
+
+    std::pair<typename std::vector<T>::const_iterator,
+              typename std::vector<std::string>::const_iterator> cend() const;
+
+    size_t size() const;
+
+    bool empty() const;
+
     void reserve(size_t len);
+
     void clear();
 
 private:
     void copy_names();
 
-public:
+private:
     std::shared_ptr<std::vector<std::string>> m_names;
 
 };
@@ -113,6 +135,42 @@ T& MyVector<T>::operator[](const std::string& name) {
 }
 
 template<typename T>
+std::pair<typename std::vector<T>::iterator,
+          typename std::vector<std::string>::iterator> MyVector<T>::begin() {
+    return std::make_pair(std::vector<T>::begin(), m_names->begin());
+}
+
+template<typename T>
+std::pair<typename std::vector<T>::iterator,
+          typename std::vector<std::string>::iterator> MyVector<T>::begin() const {
+    return std::make_pair(std::vector<T>::begin(), m_names->begin());
+}
+
+template<typename T>
+std::pair<typename std::vector<T>::iterator,
+          typename std::vector<std::string>::iterator> MyVector<T>::end() {
+    return std::make_pair(std::vector<T>::end(), m_names->end());
+}
+
+template<typename T>
+std::pair<typename std::vector<T>::iterator,
+          typename std::vector<std::string>::iterator> MyVector<T>::end() const {
+    return std::make_pair(std::vector<T>::end(), m_names->end());
+}
+
+template<typename T>
+std::pair<typename std::vector<T>::const_iterator,
+          typename std::vector<std::string>::const_iterator> MyVector<T>::cbegin() const {
+    return std::make_pair(std::vector<T>::cbegin(), m_names->cbegin());
+}
+
+template<typename T>
+std::pair<typename std::vector<T>::const_iterator,
+          typename std::vector<std::string>::const_iterator> MyVector<T>::cend() const {
+    return std::make_pair(std::vector<T>::cend, m_names->cend());
+}
+
+template<typename T>
 void MyVector<T>::reserve(size_t len) {
     copy_names();
 
@@ -126,6 +184,16 @@ void MyVector<T>::clear() {
 
     std::vector<T>::clear();
     m_names->clear();
+}
+
+template<typename T>
+size_t MyVector<T>::size() const {
+    return m_names->size();
+}
+
+template<typename T>
+bool MyVector<T>::empty() const {
+    return std::vector<T>::empty() && m_names->empty();
 }
 
 template<typename T>

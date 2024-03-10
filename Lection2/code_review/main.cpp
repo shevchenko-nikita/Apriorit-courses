@@ -10,8 +10,11 @@ int main() {
     vec.push_back(12, "twelve");
     vec.push_back(100, "one hundred");
 
-    vec.reserve(100);
-    std::cout << vec.m_names->capacity();
+    auto it_begin = vec.begin();
+
+    std::cout << *it_begin.first << ' ' << *it_begin.second;
+//    vec.reserve(100);
+//    std::cout << vec.m_names->capacity();
 
 //    for(const auto& str : {"five", "ten", "twelve", "kek"}) {
 ////        try {
