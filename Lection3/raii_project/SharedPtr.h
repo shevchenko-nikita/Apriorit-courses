@@ -6,7 +6,7 @@ template <typename Resource>
 class SharedPtr
 {
 public:
-    SharedPtr();
+    SharedPtr() = default;
     explicit SharedPtr(Resource* res);
     SharedPtr(const SharedPtr<Resource>& rhs);
 //    SharedPtr(const WeakPtr<Resource>& rhs);
@@ -26,13 +26,6 @@ private:
     ControlBlock<Resource>* control_block = nullptr;
 };
 
-
-template<typename Resource>
-SharedPtr<Resource>::SharedPtr() : control_block(new ControlBlock<Resource>())
-{
-
-}
-
 template<typename Resource>
 SharedPtr<Resource>::SharedPtr(Resource *res)
                               : control_block(new ControlBlock(res))
@@ -44,31 +37,78 @@ template<typename Resource>
 SharedPtr<Resource>::SharedPtr(const SharedPtr<Resource>& rhs)
                               : control_block(rhs.control_block)
 {
-    control_block->Append();
+    if(control_block) {
+        control_block->Append();
+    }
 }
 
 template<typename Resource>
 SharedPtr<Resource>& SharedPtr<Resource>::operator=(const SharedPtr<Resource>& rhs) {
-    delete control_block;
-    control_block = rhs;
-    control_block.Append();
+    if(control_block != rhs.control_block) {
+        Reset();
+        control_block = rhs.control_block;
+
+        if (control_block) {
+            control_block->Append();
+        }
+    }
+
+    return *this;
 }
 
 template<typename Resource>
 SharedPtr<Resource>::~SharedPtr() {
-    delete control_block;
+    Reset();
 }
 
 template<typename Resource>
-SharedPtr<Resource>::Resource* Get() const {
-    return
+void SharedPtr<Resource>::Reset() {
+    if(control_block) {
+        delete control_block;
+        control_block = nullptr;
+    }
 }
 
 template<typename Resource>
-SharedPtr<Resource>::Resource& operator*() const;
+void SharedPtr<Resource>::Reset(Resource* res) {
+    Reset();
+    control_block = new ControlBlock(res);
+}
 
 template<typename Resource>
-SharedPtr<Resource>::Resource* operator->() const;
+void SharedPtr<Resource>::Swap(SharedPtr<Resource>& rhs) {
+    std::swap(control_block, rhs.control_block);
+}
 
 template<typename Resource>
-SharedPtr<Resource>::long UseCount() const;
+Resource* SharedPtr<Resource>::Get() const {
+    if(control_block == nullptr) {
+        throw std::runtime_error("trying to accsess to nullptr");
+    }
+    return control_block->getPointer();
+}
+
+template<typename Resource>
+Resource& SharedPtr<Resource>::operator*() const {
+    if(control_block == nullptr) {
+        throw std::runtime_error("trying to accsess to nullptr");
+    }
+    return *control_block->getPointer();
+}
+
+template<typename Resource>
+Resource* SharedPtr<Resource>::operator->() const {
+    if(control_block == nullptr) {
+        throw std::runtime_error("trying to accsess to nullptr");
+    }
+    return control_block->getPointer();
+}
+
+template<typename Resource>
+long SharedPtr<Resource>::UseCount() const {
+    if(control_block == nullptr) {
+        return 0;
+    }
+
+    return control_block->getRefsCount();
+}

@@ -4,17 +4,25 @@
 #include "socket_deleter.h"
 #include "SharedPtr.h"
 
+void printSharedPtrInfo(const SharedPtr<int>& ptr) {
+    std::cout << ptr.UseCount() << '\n';
+    std::cout << ptr.Get() << '\n';
+    std::cout << *ptr << '\n';
+
+    std::cout << "\n\n";
+}
+
 #include <memory>
 
 int main() {
 
+    SharedPtr<int> ptr(new int(10));
+    SharedPtr<int> ptr1(new int(25));
 
-    std::shared_ptr<int> x;
+    ptr1 = ptr;
 
-    std::shared_ptr<int> y(x);
+    printSharedPtrInfo(ptr);
+    printSharedPtrInfo(ptr1);
 
-    x.reset(new int(10));
-
-    std::cout << x.use_count();
 
 }

@@ -3,8 +3,7 @@
 template<typename Resource>
 class ControlBlock {
 public:
-    ControlBlock() = default;
-    ControlBlock(Resource* res);
+    explicit ControlBlock(Resource* res);
 
     ~ControlBlock();
 
@@ -16,8 +15,8 @@ public:
     Resource* getPointer() const;
 
 private:
-    int refs_count = 0;
-    Resource* value = nullptr;
+    int refs_count;
+    Resource* value;
 
 };
 
@@ -40,11 +39,14 @@ void ControlBlock<Resource>::Append() {
 
 template<typename Resource>
 void ControlBlock<Resource>::Subtract() {
-    if(value != nullptr) {
-        --refs_count;
-        if (refs_count == 0) {
+    --refs_count;
+
+    if (refs_count == 0) {
+        if(value != nullptr) {
             delete value;
         }
+
+        value = nullptr;
     }
 }
 
