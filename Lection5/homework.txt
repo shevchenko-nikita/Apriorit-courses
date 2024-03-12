@@ -1,0 +1,38 @@
+# Вимоги
+
+- Використовувати google test
+- У відповіді досить архіву файлів із кодом, весь солюшен кидати не треба
+- Не забудьте перевірити всі шляхи виконання і граничні випадки
+
+# Завдання
+
+1. Є готовий метод, треба покрити його юніт тестами
+
+size_t GetProductsAmount(std::vector<unsigned int> prices, int amountOfMoney)
+{
+    std::sort(prices.begin(), prices.end());
+
+    int sum = 0;
+    for (size_t i = 0; i < prices.size(); ++i)
+    {
+        sum += prices[i];
+        if (sum > amountOfMoney)
+        {
+            return i;
+        }
+    }
+
+    return prices.size();
+}
+
+
+2. Потрібно реалізувати метод і покрити його юніт тестами (рекомендується спробувати  TDD,  тобто почати з тесту)
+
+Given a year, report if it is a leap year.
+The tricky thing here is that a leap year in the Gregorian calendar occurs:
+on every year that is evenly divisible by 4
+  except every year that is evenly divisible by 100
+    unless the year is also evenly divisible by 400
+For example, 1997 is not a leap year, but 1996 is. 1900 is not a leap year, but 2000 is.
+
+bool IsLeapYear(unsigned int year);

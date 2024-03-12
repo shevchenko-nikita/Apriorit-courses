@@ -6,35 +6,6 @@
 #include <stdexcept>
 #include <memory>
 
-/*
- * MyVector stores a collection of objects with their names.
- *
- * For each object T, MyVector stores T`s name as std::string.
- * Several objects can have similar name.
- * operator[](const std::string& name) should return the first object
- * with the given name.
- *
- * Your task is to find as many mistakes and drawbacks in this code
- * (according to the presentation) as you can.
- * Annotate these mistakes with comments.
- *
- * Once you have found all the mistakes, rewrite the code
- * so it would not change its original purpose
- * and it would contain no mistakes.
- * Try to make the code more efficient without premature optimization.
- *
- * You can change MyVector interface completely, but there are several rules:
- * 1) you should correctly and fully implement copy-on-write idiom.
- * 2) std::pair<const T&, const std::string&> operator[](int index) const must take constant time at worst.
- * 3) const T& operator[](const std::string& name) const should be present.
- * 4) both operator[] should have non-const version.
- * 5) your implementation should provide all the member types of std::vector.
- * 6) your implementation should provide the following functions:
- *    1) begin(), cbegin(), end(), cend()
- *    2) empty(), size()
- *    3) reserve(), clear()
- */
-
 template <typename T>
 class MyVector : public std::vector<T>
 {
