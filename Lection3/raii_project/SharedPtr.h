@@ -2,6 +2,11 @@
 
 #include "ControlBlock.h"
 
+//#include "WeakPtr.h"
+
+template <typename Resource>
+class WeakPtr;
+
 template <typename Resource>
 class SharedPtr
 {
@@ -9,7 +14,7 @@ public:
     SharedPtr() = default;
     explicit SharedPtr(Resource* res);
     SharedPtr(const SharedPtr<Resource>& rhs);
-//    SharedPtr(const WeakPtr<Resource>& rhs);
+    SharedPtr(const WeakPtr<Resource>& rhs);
     SharedPtr<Resource>& operator=(const SharedPtr<Resource>& rhs);
     ~SharedPtr();
 
@@ -21,6 +26,10 @@ public:
     Resource& operator*() const;
     Resource* operator->() const;
     long UseCount() const;
+
+private:
+    template<typename T>
+    friend class WeakPtr;
 
 private:
     ControlBlock<Resource>* control_block = nullptr;
@@ -38,7 +47,16 @@ SharedPtr<Resource>::SharedPtr(const SharedPtr<Resource>& rhs)
                               : control_block(rhs.control_block)
 {
     if(control_block) {
-        control_block->Append();
+        control_block->appendRefs();
+    }
+}
+
+template<typename Resource>
+SharedPtr<Resource>::SharedPtr(const WeakPtr<Resource>& rhs)
+                              : control_block(rhs.control_block)
+{
+    if(control_block) {
+        control_block->appendRefs();
     }
 }
 
@@ -49,7 +67,7 @@ SharedPtr<Resource>& SharedPtr<Resource>::operator=(const SharedPtr<Resource>& r
         control_block = rhs.control_block;
 
         if (control_block) {
-            control_block->Append();
+            control_block->appendRefs();
         }
     }
 
@@ -64,7 +82,14 @@ SharedPtr<Resource>::~SharedPtr() {
 template<typename Resource>
 void SharedPtr<Resource>::Reset() {
     if(control_block) {
-        delete control_block;
+        control_block->subtractRefs();
+
+        if(control_block->getRefsCount() == 0 &&
+           control_block->getWeaksCount() == 0)
+        {
+            delete control_block;
+        }
+
         control_block = nullptr;
     }
 }
