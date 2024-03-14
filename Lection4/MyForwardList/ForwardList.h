@@ -2,7 +2,9 @@
 
 #include <initializer_list>
 #include <iostream>
+
 #include "Node.h"
+#include "Iterator.h"
 
 template<typename T>
 class ForwardList {
@@ -23,58 +25,25 @@ public:
 
     void pop_front();
 
+    void erase_after(const Iterator<T> pos);
+
+    void clear();
+
     size_t size() const;
 
+    Iterator<T> begin();
+    Iterator<T> end();
 
-    class Iterator;
-
-    Iterator begin();
-    Iterator end();
-
-    const Iterator begin() const;
-    const Iterator end() const;
+    const Iterator<T> begin() const;
+    const Iterator<T> end() const;
 
 private:
+    void copy(const ForwardList& other);
+
     size_t list_size = 0;
     std::shared_ptr<Node<T>> head = nullptr;
 
 };
-
-template<typename T>
-class ForwardList<T>::Iterator {
-private:
-    std::shared_ptr<Node<T>> cur = nullptr;
-public:
-    Iterator() = default;
-    Iterator(const std::shared_ptr<Node<T>> other) : cur(other) {}
-
-    T& operator*() const;
-    std::shared_ptr<Node<T>> operator++();
-
-    bool operator==(const Iterator& other);
-    bool operator!=(const Iterator& other);
-};
-
-template<typename T>
-T& ForwardList<T>::Iterator::operator*() const {
-    return cur->value;
-}
-
-template<typename T>
-std::shared_ptr<Node<T>> ForwardList<T>::Iterator::operator++() {
-    cur = cur->next_node;
-    return cur;
-}
-
-template<typename T>
-bool ForwardList<T>::Iterator::operator==(const Iterator& other) {
-    return cur == other.cur;
-}
-
-template<typename T>
-bool ForwardList<T>::Iterator::operator!=(const Iterator& other) {
-    return cur != other.cur;
-}
 
 template<typename T>
 ForwardList<T>::ForwardList(size_t count, const T& value) : list_size(count) {
@@ -84,21 +53,8 @@ ForwardList<T>::ForwardList(size_t count, const T& value) : list_size(count) {
 }
 
 template<typename T>
-ForwardList<T>::ForwardList(const ForwardList& other) : list_size(other.list_size) { /// !!!!!!!!!!
-    std::shared_ptr<Node<T>> cur_node = nullptr;
-    std::shared_ptr<Node<T>> prev_node = nullptr;
-
-    for(const auto& other_node : other) {
-        cur_node = std::make_shared<Node<T>>(Node<T>(*other_node));
-
-        if(head == nullptr) {
-            head = cur_node;
-        }
-        else {
-            prev_node->next_node = cur_node;
-        }
-        prev_node = cur_node;
-    }
+ForwardList<T>::ForwardList(const ForwardList& other) {
+    copy(other);
 }
 
 template<typename T>
@@ -116,22 +72,9 @@ ForwardList<T>::ForwardList(std::initializer_list<T> init) {
 
 template<typename T>
 ForwardList<T>& ForwardList<T>::operator=(const ForwardList& other) {
-    list_size = other.list_size;
-    head = nullptr;
+    head.reset();
 
-    std::shared_ptr<Node<T>> cur_node = nullptr;
-    std::shared_ptr<Node<T>> prev_node = nullptr;
-
-    for(Iterator other_node = other.begin(); other_node != other.end(); ++other_node) {
-        cur_node = std::make_shared<Node<T>>(Node<T>(*other_node));
-        if(head == nullptr) {
-            head = cur_node;
-        }
-        else {
-            prev_node->next_node = cur_node;
-        }
-        prev_node = cur_node;
-    }
+    copy(other);
 
     return *this;
 }
@@ -174,26 +117,72 @@ void ForwardList<T>::pop_front() {
 }
 
 template<typename T>
+void ForwardList<T>::erase_after(const Iterator<T> pos) {
+    if(pos.get() == nullptr) {
+        return;
+    }
+
+    auto cur_node = pos.get();
+    auto next_node = cur_node->next_node;
+
+    if(next_node) {
+        auto new_next_node = next_node->next_node;
+        cur_node->next_node = new_next_node;
+
+        next_node.reset();
+        --list_size;
+    }
+
+}
+
+template<typename T>
+void ForwardList<T>::clear() {
+    list_size = 0;
+    head.reset();
+}
+
+template<typename T>
 size_t ForwardList<T>::size() const {
     return list_size;
 }
 
 template<typename T>
-typename ForwardList<T>::Iterator ForwardList<T>::begin() {
-    return Iterator(head);
+Iterator<T> ForwardList<T>::begin() {
+    return Iterator<T>(head);
 }
 
 template<typename T>
-typename ForwardList<T>::Iterator ForwardList<T>::end() {
-    return Iterator();
+Iterator<T> ForwardList<T>::end() {
+    return Iterator<T>();
 }
 
 template<typename T>
-const typename ForwardList<T>::Iterator ForwardList<T>::begin() const {
-    return Iterator(head);
+const Iterator<T> ForwardList<T>::begin() const {
+    return Iterator<T>(head);
 }
 
 template<typename T>
-const typename ForwardList<T>::Iterator ForwardList<T>::end() const {
-    return Iterator();
+const Iterator<T> ForwardList<T>::end() const {
+    return Iterator<T>();
+}
+
+template<typename T>
+void ForwardList<T>::copy(const ForwardList<T> &other) {
+    list_size = other.list_size;
+
+    std::shared_ptr<Node<T>> cur_node = nullptr;
+    std::shared_ptr<Node<T>> prev_node = nullptr;
+
+    for(Iterator other_node = other.begin(); other_node != other.end(); ++other_node) {
+        cur_node = std::make_shared<Node<T>>(Node<T>(*other_node));
+
+        if(head == nullptr) {
+            head = cur_node;
+        }
+        else {
+            prev_node->next_node = cur_node;
+        }
+
+        prev_node = cur_node;
+    }
 }

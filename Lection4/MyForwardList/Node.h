@@ -14,5 +14,8 @@ private:
 
     template<typename Resource>
     friend class ForwardList;
+
+    template<typename Resource>
+    friend class Iterator;
 };
 
