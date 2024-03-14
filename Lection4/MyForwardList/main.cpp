@@ -1,6 +1,10 @@
 #include <iostream>
 
+#include "ForwardList.h"
+
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+
+    ForwardList<int> lst = {1, 2, 3, 4, 5, 6};
+
+
 }
