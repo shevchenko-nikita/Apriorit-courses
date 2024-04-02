@@ -1,0 +1,16 @@
+# ninja log v5
+3	302	7324117262263159	build.ninja	af1eddfda987bb9d
+3	618	7324116250643645	products_lib/CMakeFiles/products_lib.dir/productAmount.cpp.obj	dc982ee19eb7c976
+14	1451	7324082274867632	test/CMakeFiles/test.dir/test.cpp.obj	d769974ec35709b8
+1461	1589	7324082276256868	test/libtest.a	6e1395f87a87b92a
+3	590	7324102002857505	CMakeFiles/app2.dir/main.cpp.obj	fe81ab9d5122c9a9
+618	739	7324116251850062	products_lib/libproducts_lib.a	6082e5d00457fbeb
+704	821	7324102005134227	app2.exe	a11985afc9dc55e
+8	1537	7324116259834637	test/CMakeFiles/test_ex.dir/main.cpp.obj	a93c068334bc76fd
+1537	3272	7324116277118380	test/test_ex.exe	a8fae7527bd224ef
+4	646	7324117447616059	products_lib/CMakeFiles/products_lib.dir/productAmount.cpp.obj	dc982ee19eb7c976
+647	732	7324117448475676	products_lib/libproducts_lib.a	6082e5d00457fbeb
+5	1034	7324117459744674	products_lib/CMakeFiles/products_lib.dir/productAmount.cpp.obj	dc982ee19eb7c976
+1034	1143	7324117460860639	products_lib/libproducts_lib.a	6082e5d00457fbeb
+9	1955	7324117468979989	test/CMakeFiles/test_ex.dir/main.cpp.obj	a93c068334bc76fd
+1956	4174	7324117491001082	test/test_ex.exe	a8fae7527bd224ef

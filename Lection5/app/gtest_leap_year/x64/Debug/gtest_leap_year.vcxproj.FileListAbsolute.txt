@@ -1,0 +1,1 @@
+C:\Users\Shevchenko\Desktop\прога\courses\Apriorit\Lection5\app\gtest_leap_year\x64\Debug\gtest_leap_year.vcxproj.CopyComplete

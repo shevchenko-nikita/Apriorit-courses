@@ -1,0 +1,9 @@
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/CMakeFiles/app2.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/products_lib/CMakeFiles/rebuild_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/products_lib/CMakeFiles/products_lib.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/products_lib/CMakeFiles/edit_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/test/CMakeFiles/test_ex.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/test/CMakeFiles/edit_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/cmake-build-debug/test/CMakeFiles/rebuild_cache.dir

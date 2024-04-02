@@ -1,0 +1,3 @@
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/products_lib/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/products_lib/cmake-build-debug/CMakeFiles/products_lib.dir
+C:/Users/Shevchenko/Desktop/прога/courses/Apriorit/Lection5/app2/products_lib/cmake-build-debug/CMakeFiles/edit_cache.dir

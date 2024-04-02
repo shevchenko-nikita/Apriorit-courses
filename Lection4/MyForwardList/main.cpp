@@ -1,6 +1,6 @@
 #include <iostream>
-
 #include "ForwardList.h"
+
 
 template<typename T>
 void printForwardList(const ForwardList<T> lst) {

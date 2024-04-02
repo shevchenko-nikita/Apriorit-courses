@@ -1,0 +1,3 @@
+C:/Users/Shevchenko/Desktop/programing/courses/Apriorit/Lection10/Multithreading/cmake-build-debug/CMakeFiles/Multithreading.dir
+C:/Users/Shevchenko/Desktop/programing/courses/Apriorit/Lection10/Multithreading/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Shevchenko/Desktop/programing/courses/Apriorit/Lection10/Multithreading/cmake-build-debug/CMakeFiles/rebuild_cache.dir
